@@ -22,11 +22,12 @@
 <body>
   <script>
     function main() {
+      const path = 'images/';
       const filenames = ['red', 'orange', 'yellow', 'green', 'blue'];
       const ext = '.png';
       
-      const selectedImage = createImage(filenames[0] + ext);
-      const images = filenames.map((name) => name + ext)
+      const selectedImage = createImage(path + filenames[0] + ext);
+      const images = filenames.map((name) => path + name + ext)
                               .map((src) => createImage(src, 'selectable'));
       images.map((img) => {
         document.body.appendChild(img);
