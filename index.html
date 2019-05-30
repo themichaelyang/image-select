@@ -7,42 +7,58 @@
   <meta name="description" content="">
   <style>
     img {
-      width: 128px;
+      display: block;
+      width: 100%;
       height: auto;
-      transition-duration: 100ms;
+      transition: transform 200ms cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      box-sizing: border-box;
+      padding-right: 12px;
+      padding-bottom: 12px;
     }
 
-    .selectable {
-      width: 33.3333%;
-    }
-   
+    .selectable {}
     .selectable:hover {
-      transform: scale(1.1);
+      transform: scale(1.055);
       cursor: pointer;
+    }
+    .selectable:active {
+      transform: scale(0.9);
+    }
+    .selectable::after {
+      content: "";
+      clear: both;
+      display: table;
     }
     
     #widget {
-      display: flex;
       width: 50vw;
       margin: 0 auto;
-      margin-top: 50px;
     }
 
     #choices {
-      display: flex;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      flex: 1;
+      display: block;
+      width: 60%;
+      float: left;
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .image-container {
+      float: left;
+      width: 33.3333%;
+      margin: none;
     }
     
     #selected {
-      flex: 0.6666;
+      float: left;
+      width: 40%;
     }
   </style>
 </head>
 <body>
   <div id="widget">
-    <div id="choices"></div> 
+    <ul id="choices"></ul> 
     <img id="selected"/>
   </div>
 
@@ -54,11 +70,15 @@
       
       const selectedImage = document.getElementById('selected');
       selectedImage.src = path + filenames[0] + ext;
-      const container = document.getElementById('choices');
+      const choices = document.getElementById('choices');
       const images = filenames.map((name) => path + name + ext)
                               .map((src) => createImage(src, 'selectable'));
+
       images.map((img) => {
+        const container = document.createElement('li');
+        container.className = 'image-container';
         container.appendChild(img);
+        choices.appendChild(container);
         img.addEventListener('click', (evt) => selectedImage.src = img.src);
       })
     }
