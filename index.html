@@ -7,34 +7,60 @@
   <meta name="description" content="">
   <style>
     img {
-      margin: 8px;
       width: 128px;
       height: auto;
       transition-duration: 100ms;
     }
 
+    .selectable {
+      width: 33.3333%;
+    }
+   
     .selectable:hover {
       transform: scale(1.1);
       cursor: pointer;
     }
+    
+    #widget {
+      display: flex;
+      width: 50vw;
+      margin: 0 auto;
+      margin-top: 50px;
+    }
+
+    #choices {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      flex: 1;
+    }
+    
+    #selected {
+      flex: 0.6666;
+    }
   </style>
 </head>
 <body>
+  <div id="widget">
+    <div id="choices"></div> 
+    <img id="selected"/>
+  </div>
+
   <script>
     function main() {
       const path = 'images/';
-      const filenames = ['red', 'orange', 'yellow', 'green', 'blue'];
+      const filenames = ['red', 'orange', 'yellow', 'green', 'blue', 'purple'];
       const ext = '.png';
       
-      const selectedImage = createImage(path + filenames[0] + ext);
+      const selectedImage = document.getElementById('selected');
+      selectedImage.src = path + filenames[0] + ext;
+      const container = document.getElementById('choices');
       const images = filenames.map((name) => path + name + ext)
                               .map((src) => createImage(src, 'selectable'));
       images.map((img) => {
-        document.body.appendChild(img);
+        container.appendChild(img);
         img.addEventListener('click', (evt) => selectedImage.src = img.src);
       })
-
-      document.body.appendChild(selectedImage);
     }
 
     function createImage(src, className='') {
