@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title></title>
+  <meta name="description" content="">
+  <style>
+    img {
+      margin: 8px;
+      width: 128px;
+      height: auto;
+      transition-duration: 100ms;
+    }
+
+    .selectable:hover {
+      transform: scale(1.1);
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <script>
+    function main() {
+      const filenames = ['red', 'orange', 'yellow', 'green', 'blue'];
+      const ext = '.png';
+      
+      const selectedImage = createImage(filenames[0] + ext);
+      const images = filenames.map((name) => name + ext)
+                              .map((src) => createImage(src, 'selectable'));
+      images.map((img) => {
+        document.body.appendChild(img);
+        img.addEventListener('click', (evt) => selectedImage.src = img.src);
+      })
+
+      document.body.appendChild(selectedImage);
+    }
+
+    function createImage(src, className='') {
+      const image = document.createElement('img');
+      image.src = src;
+      image.className = className;
+      return image;
+    }
+
+    window.onload = main;
+  </script>
+</body>
+</html>
+ 
